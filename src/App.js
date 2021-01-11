@@ -16,6 +16,10 @@ class App extends React.Component {
       .then(users => this.setState({ monsters: users }));
   }
   render() {
+    const { monsters, searchField } = this.state;
+    const filterMonsters = monsters.filter(monster =>
+      monster.name.toLowerCase().includes(searchField.toLowerCase())
+    );
     return (
       <div className="App">
         <input
@@ -28,7 +32,7 @@ class App extends React.Component {
             )
           }
         />
-        <CardList monsters={this.state.monsters} />
+        <CardList monsters={filterMonsters} />
       </div>
     );
   }

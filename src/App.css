@@ -2,6 +2,11 @@
   text-align: center;
 }
 
+h1 {
+  font-family: 'Potta One', cursive;
+  font-size: 72px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

@@ -4,11 +4,12 @@ import { SearchBox } from './components/search-box/search-box.component';
 import './App.css';
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       monsters: [],
       searchField: '',
+      meaningOfLife: 47 + this.props.increment,
     };
     // this.handleChange = this.handleChange.bind(this);
   }
@@ -24,11 +25,22 @@ class App extends React.Component {
   // }
 
   //不用綁定this
-
   handleChange = e => {
     // setState 是一個非同步的事件,可以利用setState的第二個參數 再往下做
     this.setState({ searchField: e.target.value }, () =>
       console.log(this.state)
+    );
+  };
+
+  // 這是比較好的寫法 用來解決非同步的問題
+  handleClick = () => {
+    this.setState(
+      (prevState, prevProps) => {
+        return {
+          meaningOfLife: prevState.meaningOfLife + prevProps.increment,
+        };
+      },
+      () => console.log(this.state.meaningOfLife)
     );
   };
   render() {
@@ -49,6 +61,8 @@ class App extends React.Component {
           }
         /> */}
         <h1>Monsters Rolodex</h1>
+        <p>{this.state.meaningOfLife}</p>
+        <button onClick={this.handleClick}>test btn</button>
         <SearchBox
           placeholder="search monsters"
           handleChange={this.handleChange}
